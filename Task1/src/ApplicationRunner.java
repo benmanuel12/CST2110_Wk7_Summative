@@ -7,14 +7,17 @@ import java.io.IOException;
 
 public class ApplicationRunner {
 
+    static int totalChars = 0;
+    static char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+    static int[] frequency = new int[26];
+
     public static void main(String[] args) {
-
-        int totalChars = 0;
-        char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-        int[] frequency = new int[26];
-
+        readFile();
+        createOutput();
+    }
+    
+    static void readFile(){
         String dataFile = System.getProperty("user.dir") + File.separator + "play.txt";
-        String outputFile = System.getProperty("user.dir") + File.separator + "results.txt";
         try (FileReader fr = new FileReader(dataFile)) {
             int i;
             //go through each char
@@ -36,11 +39,13 @@ public class ApplicationRunner {
         } catch (IOException e) {
             System.out.println("IOException");
         }
-
+    }
+    
+    static void createOutput(){
+        String outputFile = System.getProperty("user.dir") + File.separator + "results.txt";
         String outputString = "Total Number of Letters = " + Integer.toString(totalChars);
         // for length of frequency array, ,  
-        for (int x = 0;
-                x < 26; x++) { //26 letters
+        for (int x = 0; x < 26; x++) { //26 letters
             int highest = 0;
             int index = 0;
             // find the highest frequency in the array
@@ -57,6 +62,7 @@ public class ApplicationRunner {
         }
 
         System.out.println(outputString);
+        
         try (FileWriter fw = new FileWriter(outputFile)) {
             fw.write(outputString);
         } catch (IOException e) {
