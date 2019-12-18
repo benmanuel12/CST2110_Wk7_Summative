@@ -38,44 +38,40 @@ public class ApplicationRunner {
         playerInput = playerInput.toLowerCase().replaceAll("\\s+", "");
         for (int i = 0; i < playerInput.length(); i++) {
             inputAsArray.add(playerInput.charAt(i));
-        };
+        }
     }
 
     static void generatePermutations(String str, String ans) {
         if (str.length() == 0) {
-            anagrams.add(ans + "");
+            anagrams.add(ans);
             return;
         }
 
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
-            String rest = str.substring(0, i)
-                    + str.substring(i + 1);
+            String rest = str.substring(0, i) + str.substring(i + 1);
             generatePermutations(rest, ans + ch);
         }
     }
-
+    
     static void findMatches() {
         results.clear();
-        System.out.println("here");
         generatePermutations(playerInput, "");
-        System.out.println("here");
-        
-        for (char i : inputAsArray){
-            System.out.println("running");
-            for (int j = 0; j<words.size(); j++){
-               if (words.get(j).indexOf(i) == -1){
+
+        for (char i : inputAsArray) {
+            for (int j = 0; j < words.size(); j++) {
+                if (words.get(j).indexOf(i) == -1) {
                     words.remove(j);
                 }
             }
         }
-        for (String i : anagrams){
-            if ((words.contains(i)) && (results.contains(i) == false)){
+        for (String i : anagrams) {
+            if ((words.contains(i)) && (results.contains(i) == false)) {
                 results.add(i);
             }
         }
-        
-        if (0 == results.size()) {
+
+        if (results.isEmpty()) {
             results.add(playerInput);
         }
         System.out.println("Possible anagrams for " + playerInput + ": " + results.toString());
