@@ -88,9 +88,14 @@ public class ApplicationRunner {
         // Select word from list
         int randomIndex = (int) (Math.random() * choices.size());
         targetWord = choices.get(randomIndex);
+        
+        charsInWord.clear();
+        charsNotInWord.clear();
+        targetWordArray.clear();
         for (int i = 0; i < targetWord.length(); i++) {
             targetWordArray.add(targetWord.charAt(i));
         }
+        wordState.clear();
         for (int i = 0; i < targetWord.length(); i++) {
             wordState.add('_');
         }
@@ -106,7 +111,11 @@ public class ApplicationRunner {
             if ((charsNotInWord.contains(nextLetter) == false) && (charsInWord.contains(nextLetter) == false)) {
                 if (Character.isLetter(nextLetter) || (nextLetter == '*')) {
                     return nextLetter;
+                } else {
+                    System.out.println("That is not a letter");
                 }
+            } else {
+                System.out.println("You have already tried that");
             }
         }
     }
